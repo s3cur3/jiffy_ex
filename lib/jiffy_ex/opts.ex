@@ -47,7 +47,7 @@ defmodule JiffyEx.Opts do
   """
   @spec parse_decode_opts(Keyword.t()) :: jiffy_opts
   def parse_decode_opts(opts) do
-    [{:return_maps, true} | parse(opts, @valid_decode_opts)]
+    [:return_maps | parse(opts, @valid_decode_opts)]
   end
 
   @spec parse(Keyword.t(), [atom]) :: jiffy_opts
