@@ -5,7 +5,6 @@ defmodule JiffyEx.Opts do
   """
 
   @valid_decode_opts [
-    :return_maps,
     :use_nil,
     :return_trailer,
     :dedupe_keys,
@@ -48,7 +47,7 @@ defmodule JiffyEx.Opts do
   """
   @spec parse_decode_opts(Keyword.t()) :: jiffy_opts
   def parse_decode_opts(opts) do
-    parse(opts, @valid_decode_opts)
+    [{:return_maps, true} | parse(opts, @valid_decode_opts)]
   end
 
   @spec parse(Keyword.t(), [atom]) :: jiffy_opts
