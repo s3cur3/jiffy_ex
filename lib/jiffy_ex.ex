@@ -20,6 +20,12 @@ defmodule JiffyEx do
     :jiffy.encode(value, opts)
   end
 
+  @spec encode_to_iodata!(term, Keyword.t()) :: iodata() | no_return
+  def encode_to_iodata!(value, opts \\ []) do
+    opts = Opts.parse_encode_opts(opts)
+    :jiffy.encode(value, opts)
+  end
+
   @doc """
   Parses the JSON input into an Elixir term.
 
@@ -48,6 +54,13 @@ defmodule JiffyEx do
   @spec encode(term, Keyword.t()) :: {:ok, String.t()} | {:error, Exception.t()}
   def encode(value, opts \\ []) do
     {:ok, encode!(value, opts)}
+  rescue
+    exception -> {:error, exception}
+  end
+
+  @spec encode_to_iodata(term, Keyword.t()) :: {:ok, iodata()} | {:error, Exception.t()}
+  def encode_to_iodata(value, opts \\ []) do
+    {:ok, encode_to_iodata!(value, opts)}
   rescue
     exception -> {:error, exception}
   end
