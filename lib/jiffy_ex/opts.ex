@@ -5,7 +5,6 @@ defmodule JiffyEx.Opts do
   """
 
   @valid_decode_opts [
-    :use_nil,
     :return_trailer,
     :dedupe_keys,
     :copy_strings,
@@ -17,7 +16,6 @@ defmodule JiffyEx.Opts do
     :uescape,
     :pretty,
     :force_utf8,
-    :use_nil,
     :escape_forward_slashes,
     :bytes_per_iter,
     :bytes_per_red
@@ -35,7 +33,7 @@ defmodule JiffyEx.Opts do
   """
   @spec parse_encode_opts(Keyword.t()) :: jiffy_opts
   def parse_encode_opts(opts) do
-    parse(opts, @valid_encode_opts)
+    [:use_nil | parse(opts, @valid_encode_opts)]
   end
 
   @doc """
@@ -47,7 +45,7 @@ defmodule JiffyEx.Opts do
   """
   @spec parse_decode_opts(Keyword.t()) :: jiffy_opts
   def parse_decode_opts(opts) do
-    [:return_maps | parse(opts, @valid_decode_opts)]
+    [:return_maps, :use_nil | parse(opts, @valid_decode_opts)]
   end
 
   @spec parse(Keyword.t(), [atom]) :: jiffy_opts
